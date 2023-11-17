@@ -101,11 +101,6 @@ function getPasswordOptions() {
   var numeric = confirm("Include numbers?");
   var special = confirm("Include specials characters?");
 
-  if (!lowercase && !uppercase && !numeric && !special) {
-    alert("Select at least one character type!");
-    return;
-  }
-
   var charset = "";
   if (lowercase) charset += lowerCasedCharacters.join('');
   if (uppercase) charset += upperCasedCharacters.join('');
@@ -127,7 +122,13 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-
+  var options = getPasswordOptions();
+  var password = "";
+  for (var i = 0; i < options.length; i++) {
+    var characterType = getRandom(options[i]);
+    password += getRandom(characterType);
+  }
+  return password;
 }
 
 // Get references to the #generate element
