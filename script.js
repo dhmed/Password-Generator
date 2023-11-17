@@ -90,7 +90,34 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+  var length = parseInt(prompt("Enter the password (between 8 e 128 characters):"));
+  if (isNaN(length) || length < 8 || length > 128) {
+    alert("Invalid length! Please enter a number between 8 and 128.");
+    return;
+  }
 
+  var lowercase = confirm("Include lowercase letters?");
+  var uppercase = confirm("Include lowercase letters?");
+  var numeric = confirm("Include numbers?");
+  var special = confirm("Include specials characters?");
+
+  if (!lowercase && !uppercase && !numeric && !special) {
+    alert("Select at least one character type!");
+    return;
+  }
+
+  var charset = "";
+  if (lowercase) charset += lowerCasedCharacters.join('');
+  if (uppercase) charset += upperCasedCharacters.join('');
+  if (numeric) charset += numericCharacters.join('');
+  if (special) charset += specialCharacters.join('');
+
+  var password = "";
+  for (var i = 0; i < length; i++) {
+    password += charset.charAt(Math.floor(Math.random() * charset.length));
+  }
+
+  alert("Your generated password is: " + password);
 }
 
 // Function for getting a random element from an array
